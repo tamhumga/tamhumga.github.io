@@ -1,0 +1,120 @@
+<div id="progress-nav">
+	<div class="ct-wrap">
+		<div class="ct ellipsis"></div>
+	</div>
+	
+	<div class="progress">
+	</div>
+</div>
+
+<style>
+	#progress-nav {
+		width:100%;
+		height:50px;
+		position : fixed;
+		background-color: #fff;
+		border-bottom: 1px solid #ccc;
+		top: -55px;
+		transition: 1s all;
+	}
+
+	#progress-nav .ct-wrap {
+		width: 100%;
+	    height: 50px;
+		z-index: 20;
+		position: absolute;
+		top:0;
+		left:0;
+	}
+
+	#progress-nav .ct {
+		width: 85%;
+	    font-size: 20px;
+	    height: 50px;
+    	line-height: 50px;
+    	padding-left: 15px;
+    	transition-property: opacity;
+    	transition-duration: 0.7s;
+    	transition-delay: 0.7s;
+    	opacity: 0;
+	}
+
+	#progress-nav .progress {
+		height:50px;
+		border-bottom: 1px solid #16A8F7;
+		background-color: #F1F3F6;
+		position: absolute;
+		z-index: 10;
+		top:0;
+		left:0;
+	}
+
+	#progress-nav .ct div {
+		position: absolute;
+	}
+
+	.ellipsis { 
+		width: 85%;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		overflow: hidden;
+	}
+</style>
+
+<script type="text/javascript">
+document.addEventListener("DOMContentLoaded", function() {
+	var Progress = {
+		docHeight : 0,
+		navHeight : 100,
+		screenHeight : 0,
+		footerHeight : 258,
+		progressBarHeight : 50,
+		init : function() {
+			this.initDocHeight();
+			this.initScreenHeight();
+			this.initProgressHeader();
+		},
+		initDocHeight : function () {
+			this.docHeight = document.querySelector("body").scrollHeight;
+		},
+		initScreenHeight : function () {
+			this.screenHeight = screen.height;
+		},
+		initProgressHeader : function () {
+			var title = document.querySelector("h1").innerText;
+			document.querySelector(".ct-wrap .ct").innerText = title;
+		},
+		scrollInProgressDisplable : function(currentPos) {
+			return this.currentPos() > this.navHeight;
+		},
+		currentPos : function() {
+			return window.scrollY;
+		},
+		displayProgress : function (ele) {
+			var readPercentage = (this.currentPos() - this.navHeight) / (this.docHeight - this.screenHeight - this.navHeight);
+
+			var elWrap = document.querySelector(ele.wrap);
+			var el = document.querySelector(ele.name);
+			var titleEle = document.querySelector(ele.titleEle);
+			if(this.scrollInProgressDisplable()) {
+				elWrap.style.top = 0;
+				el.style.width = readPercentage * 100 + "%";
+				titleEle.style.opacity = 1;
+			} else {
+				elWrap.style.top = -55 + "px";
+				titleEle.style.opacity = 0;
+			}
+		},
+	};
+
+	document.addEventListener("scroll", function(e){
+			Progress.displayProgress({
+				wrap : "#progress-nav",
+				name : ".progress",
+				titleEle : ".ct-wrap .ct"
+			});
+	});
+
+	Progress.init();
+});
+</script>

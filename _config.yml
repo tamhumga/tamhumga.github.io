@@ -1,0 +1,16 @@
+# Site settings
+
+logoAlphabet: T
+title: 탐험가
+email: tamhumgaja@gmail.com
+description: > # this means to ignore newlines until "baseurl:"
+  세상에 존재하지만 아직 발견하지 못한 새로운 것을 찾아 헤매는 탐험가의 블로그
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "http://tamhumga.github.io" # the base hostname & protocol for your site
+github_username:  tamhumga
+
+# Build settings
+markdown: kramdown
+
+host: 0.0.0.0
+port: 4000
