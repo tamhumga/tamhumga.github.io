@@ -75,7 +75,13 @@ document.addEventListener("DOMContentLoaded", function() {
 			this.initProgressHeader();
 		},
 		initDocHeight : function () {
-			this.docHeight = document.querySelector("body").scrollHeight;
+			var forNaturalPercentageDisplay = 50;
+
+			var docHeight = document.querySelector("body").scrollHeight;
+			docHeight = docHeight -document.querySelector("footer.site-footer").clientHeight;
+			docHeight = docHeight + forNaturalPercentageDisplay;
+
+			this.docHeight = docHeight;
 		},
 		initScreenHeight : function () {
 			this.screenHeight = screen.height;
